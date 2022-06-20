@@ -31,11 +31,14 @@ var init = function (window) {
             circles.push(circle);
         };
         // TODO 3 / 7 : Call the drawCircle() function 
-        drawCircle();
-        drawCircle();
-        drawCircle();
-        drawCircle();
-        drawCircle();
+        for (var circlesDrawn = 0; circlesDrawn <100; circlesDrawn++) {
+            drawCircle(circlesDrawn);
+        }
+        // drawCircle();
+        // drawCircle();
+        // drawCircle();
+        // drawCircle();
+        // drawCircle();
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM LOGIC ////////////////////////////
         ////////////////////////////////////////////////////////////
@@ -47,19 +50,29 @@ var init = function (window) {
         */
         function update() {
             // TODO 4 : Update the circle's position //
-            physikz.updatePosition(circles[0]);
-            physikz.updatePosition(circles[1]);
-            physikz.updatePosition(circles[2]);
-            physikz.updatePosition(circles[3]);
-            physikz.updatePosition(circles[4]);
+
+            // the below code was DRY so it was iterated.
+            // physikz.updatePosition(circles[0]);
+            // physikz.updatePosition(circles[1]);
+            // physikz.updatePosition(circles[2]);
+            // physikz.updatePosition(circles[3]);
+            // physikz.updatePosition(circles[4]);
+
             // TODO 5 / 10 : Call game.checkCirclePosition() on your circles.
-           game.checkCirclePosition(circles[0]);
-           game.checkCirclePosition(circles[1]);
-           game.checkCirclePosition(circles[2]);
-           game.checkCirclePosition(circles[3]);
-           game.checkCirclePosition(circles[4]);
+
+            // the below code was DRY so it was iterated.
+        //    game.checkCirclePosition(circles[0]);
+        //    game.checkCirclePosition(circles[1]);
+        //    game.checkCirclePosition(circles[2]);
+        //    game.checkCirclePosition(circles[3]);
+        //    game.checkCirclePosition(circles[4]);
+        
             // TODO 9 : Iterate over the array
-           
+            for (var i = 0; i < circles.length; i++) {
+                var eachCircle = circles[i];
+                physikz.updatePosition(eachCircle);
+                game.checkCirclePosition(eachCircle);
+            }
             
         }
     
@@ -69,9 +82,13 @@ var init = function (window) {
         it to the opposite side of the screen.
         */
         game.checkCirclePosition = function(circle) {
+            //reset circle when right edge of circle exits on the left 
             var rightEdge = circle.x + circle.radius;
+            //reset circle when left edge of circle exits on the right
             var leftEdge = circle.x - circle.radius;
+            //reset circle when top edge of circle exits on the bottom
             var topEdge = circle.y - circle.radius;
+            //reset circle when bottom edge of circle exits on the top
             var bottomEdge = circle.y + circle.radius;
             // if the circle has gone past the RIGHT side of the screen then place it on the LEFT
             if ( leftEdge > canvas.width ) {
